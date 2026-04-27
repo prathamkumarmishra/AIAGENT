@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Thermometer, Wind, Droplets, Eye, AlertTriangle } from "lucide-react";
+import { motion } from "framer-motion";
 import { getWeather } from "../utils/api";
 
 const weatherIcons = {
@@ -32,17 +33,17 @@ export default function WeatherWidget({ location }) {
 
   if (loading) {
     return (
-      <div className="bg-gradient-to-br from-forest-800 to-forest-900 rounded-2xl p-5 text-white animate-pulse">
-        <div className="h-4 bg-white/20 rounded w-1/2 mb-3" />
-        <div className="h-8 bg-white/20 rounded w-1/3 mb-2" />
-        <div className="h-3 bg-white/20 rounded w-2/3" />
+      <div className="premium-panel rounded-lg p-5 text-white">
+        <div className="shimmer-line h-4 rounded w-1/2 mb-3" />
+        <div className="shimmer-line h-8 rounded w-1/3 mb-2" />
+        <div className="shimmer-line h-3 rounded w-2/3" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-stone-100 rounded-2xl p-5 text-stone-500 text-sm text-center">
+      <div className="glass-card rounded-lg p-5 text-stone-500 text-sm text-center border border-white/70">
         {error}
       </div>
     );
@@ -53,12 +54,13 @@ export default function WeatherWidget({ location }) {
   const icon = weatherIcons[weather.condition] || "🌤️";
 
   return (
-    <div className="bg-gradient-to-br from-forest-800 via-forest-900 to-stone-900 rounded-2xl p-5 text-white overflow-hidden relative">
-      {/* Decorative blob */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-
+    <motion.div
+      whileHover={{ y: -5, rotateX: 1.5 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="premium-panel depth-card topographic rounded-lg p-5 text-white overflow-hidden relative"
+    >
       <div className="relative">
-        <p className="text-forest-300 text-xs font-medium uppercase tracking-widest mb-1">
+        <p className="text-earth-200 text-xs font-bold uppercase tracking-widest mb-1">
           Weather in
         </p>
         <h3 className="font-display font-bold text-lg">{weather.location}</h3>
@@ -74,17 +76,17 @@ export default function WeatherWidget({ location }) {
         </div>
 
         <div className="grid grid-cols-3 gap-3 mb-4">
-          <div className="bg-white/10 rounded-xl p-2.5 text-center">
+          <div className="bg-white/10 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
             <Wind className="w-3.5 h-3.5 mx-auto mb-1 text-forest-300" />
             <div className="text-xs font-semibold">{weather.windSpeed} m/s</div>
             <div className="text-[10px] text-white/60">Wind</div>
           </div>
-          <div className="bg-white/10 rounded-xl p-2.5 text-center">
+          <div className="bg-white/10 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
             <Droplets className="w-3.5 h-3.5 mx-auto mb-1 text-forest-300" />
             <div className="text-xs font-semibold">{weather.humidity}%</div>
             <div className="text-[10px] text-white/60">Humidity</div>
           </div>
-          <div className="bg-white/10 rounded-xl p-2.5 text-center">
+          <div className="bg-white/10 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
             <Eye className="w-3.5 h-3.5 mx-auto mb-1 text-forest-300" />
             <div className="text-xs font-semibold">{weather.visibility} km</div>
             <div className="text-[10px] text-white/60">Visibility</div>
@@ -107,6 +109,6 @@ export default function WeatherWidget({ location }) {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

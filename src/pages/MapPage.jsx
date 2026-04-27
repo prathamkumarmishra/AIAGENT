@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 import { MapPin, Search, Navigation, Mountain } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import "leaflet/dist/leaflet.css";
 
 // Fix leaflet default marker icons
@@ -44,6 +46,7 @@ const createCustomIcon = (color) =>
   });
 
 export default function MapPage() {
+  const navigate = useNavigate();
   const [selectedDest, setSelectedDest] = useState(null);
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
@@ -58,13 +61,18 @@ export default function MapPage() {
   });
 
   return (
-    <div className="pt-16 h-screen flex flex-col bg-[#faf8f5]">
+    <div className="pt-16 h-screen flex flex-col app-surface">
       {/* Top bar */}
-      <div className="flex-shrink-0 bg-white border-b border-stone-200 px-4 py-3">
+      <div className="flex-shrink-0 bg-white/75 backdrop-blur-2xl border-b border-white/70 px-4 py-3 shadow-[0_12px_35px_rgba(13,46,26,0.08)]">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 mr-2">
-            <Mountain className="w-5 h-5 text-forest-700" />
-            <span className="font-display font-bold text-stone-900">Adventure Map</span>
+            <div className="w-9 h-9 rounded-xl bg-forest-900 text-white flex items-center justify-center shadow-lg shadow-forest-900/20">
+              <Mountain className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="font-display font-bold text-stone-900 block leading-none">Adventure Map</span>
+              <span className="text-[11px] text-stone-500">Terrain-first destination discovery</span>
+            </div>
           </div>
 
           <div className="relative flex-1 min-w-[180px] max-w-sm">
@@ -74,7 +82,7 @@ export default function MapPage() {
               placeholder="Search destinations..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500"
+              className="w-full pl-9 pr-3 py-2 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
             />
           </div>
 
@@ -103,7 +111,7 @@ export default function MapPage() {
       {/* Map + Sidebar */}
       <div className="flex-1 flex overflow-hidden">
         {/* Sidebar */}
-        <div className="w-72 flex-shrink-0 bg-white border-r border-stone-200 overflow-y-auto hidden md:block">
+        <div className="w-72 flex-shrink-0 bg-white/65 backdrop-blur-xl border-r border-white/70 overflow-y-auto hidden md:block">
           <div className="p-3 space-y-2">
             {filtered.map((dest) => (
               <button
@@ -111,8 +119,8 @@ export default function MapPage() {
                 onClick={() => setSelectedDest(dest)}
                 className={`w-full text-left p-3 rounded-xl border transition-all ${
                   selectedDest?.id === dest.id
-                    ? "bg-forest-50 border-forest-300"
-                    : "bg-stone-50 border-stone-100 hover:border-stone-300"
+                    ? "bg-white border-forest-300 shadow-lg shadow-forest-900/10"
+                    : "bg-white/65 border-white/70 hover:border-earth-300 hover:shadow-md"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
@@ -183,8 +191,14 @@ export default function MapPage() {
           </MapContainer>
 
           {/* Selected destination panel */}
+          <AnimatePresence>
           {selectedDest && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 bg-white rounded-2xl shadow-2xl border border-stone-200 p-4 min-w-[280px] animate-slide-up">
+            <motion.div
+              initial={{ opacity: 0, y: 22, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.96 }}
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 glass depth-card rounded-lg border border-white/70 p-4 min-w-[280px]"
+            >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <div
@@ -204,13 +218,12 @@ export default function MapPage() {
                 ))}
               </div>
               <div className="flex gap-2">
-                <a
-                  href={`/itinerary?location=${selectedDest.name}`}
-                  onClick={(e) => { e.preventDefault(); window.location.href = `/itinerary`; }}
-                  className="flex-1 bg-forest-700 text-white text-xs py-2 rounded-xl text-center font-medium hover:bg-forest-600 transition-colors"
+                <button
+                  onClick={() => navigate("/itinerary", { state: { prefill: { location: selectedDest.name, activities: selectedDest.activities } } })}
+                  className="primary-glow flex-1 bg-forest-700 text-white text-xs py-2 rounded-xl text-center font-medium hover:bg-forest-600 transition-colors"
                 >
                   Plan Adventure
-                </a>
+                </button>
                 <button
                   onClick={() => setSelectedDest(null)}
                   className="px-3 py-2 text-stone-500 hover:text-stone-700 rounded-xl hover:bg-stone-100 text-xs"
@@ -218,11 +231,12 @@ export default function MapPage() {
                   Close
                 </button>
               </div>
-            </div>
+            </motion.div>
           )}
+          </AnimatePresence>
 
           {/* Legend */}
-          <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-stone-200">
+          <div className="absolute top-4 right-4 z-20 glass rounded-lg p-3 shadow-lg border border-white/70">
             <p className="text-[10px] font-semibold text-stone-500 uppercase tracking-wider mb-2">Legend</p>
             <div className="space-y-1.5">
               {Object.entries(typeColors).map(([type, color]) => (

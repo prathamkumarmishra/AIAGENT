@@ -13,6 +13,7 @@ export default {
           700: "#15803d",
           800: "#166534",
           900: "#14532d",
+          950: "#0d2e1a",
         },
         earth: {
           100: "#fef3c7",
@@ -34,7 +35,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ["'Playfair Display'", "serif"],
+        display: ["'Outfit'", "sans-serif"],
         body: ["'DM Sans'", "sans-serif"],
         mono: ["'JetBrains Mono'", "monospace"],
       },

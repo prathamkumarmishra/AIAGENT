@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bookmark, MapPin, Calendar, Star, Trash2, ChevronRight, Lock, Loader } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { getMyTrips } from "../utils/api";
 import { useAuth } from "../hooks/useAuth";
 
@@ -31,8 +32,8 @@ export default function MyTripsPage() {
 
   if (!user) {
     return (
-      <div className="pt-20 min-h-screen flex items-center justify-center bg-[#faf8f5]">
-        <div className="text-center">
+      <div className="pt-20 min-h-screen flex items-center justify-center app-surface">
+        <div className="glass-card depth-card rounded-lg border border-white/70 text-center p-10">
           <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Lock className="w-7 h-7 text-stone-400" />
           </div>
@@ -40,7 +41,7 @@ export default function MyTripsPage() {
           <p className="text-stone-500 text-sm mb-6">Create an account to save and revisit your adventure plans.</p>
           <button
             onClick={() => navigate("/")}
-            className="bg-forest-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors"
+            className="primary-glow bg-forest-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors"
           >
             Go to Home
           </button>
@@ -50,16 +51,19 @@ export default function MyTripsPage() {
   }
 
   return (
-    <div className="pt-20 min-h-screen bg-[#faf8f5]">
+    <div className="pt-20 min-h-screen app-surface">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="premium-panel topographic rounded-lg p-6 text-white flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-8">
           <div>
-            <h1 className="text-3xl font-display font-bold text-stone-900">My Adventures</h1>
-            <p className="text-stone-500 mt-1 text-sm">Your saved trip plans and itineraries</p>
+            <p className="section-kicker mb-3 text-earth-200">Saved Field Library</p>
+            <h1 className="text-3xl font-display font-bold">My Adventures</h1>
+            <p className="text-forest-100/75 mt-1 text-sm max-w-xl">
+              Your saved trip plans, route ideas, itinerary highlights, and future weekend sparks in one quiet place.
+            </p>
           </div>
           <button
             onClick={() => navigate("/itinerary")}
-            className="bg-forest-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors flex items-center gap-2"
+            className="primary-glow bg-earth-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-earth-400 transition-colors flex items-center gap-2"
           >
             + New Plan
           </button>
@@ -70,13 +74,13 @@ export default function MyTripsPage() {
             <Loader className="w-8 h-8 animate-spin text-forest-600" />
           </div>
         ) : trips.length === 0 ? (
-          <div className="bg-white rounded-2xl p-14 border border-stone-100 text-center">
+          <div className="glass-card depth-card rounded-lg p-14 border border-white/70 text-center">
             <div className="text-6xl mb-4">🏕️</div>
             <h3 className="font-display font-bold text-xl text-stone-900 mb-2">No trips saved yet</h3>
             <p className="text-stone-500 text-sm mb-6">Generate your first AI adventure plan and save it here!</p>
             <button
               onClick={() => navigate("/itinerary")}
-              className="bg-forest-700 text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-forest-600"
+              className="primary-glow bg-forest-700 text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-forest-600"
             >
               Plan an Adventure →
             </button>
@@ -84,13 +88,15 @@ export default function MyTripsPage() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {trips.map((trip) => (
-              <div
+              <motion.div
                 key={trip._id}
-                className="bg-white rounded-2xl border border-stone-100 hover:border-forest-200 hover:shadow-md transition-all cursor-pointer group"
+                whileHover={{ y: -6, rotateX: 1 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="glass-card depth-card rounded-lg border border-white/70 transition-all cursor-pointer group overflow-hidden"
                 onClick={() => setSelectedTrip(selectedTrip?._id === trip._id ? null : trip)}
               >
                 {/* Card header */}
-                <div className="bg-gradient-to-br from-forest-700 to-forest-900 rounded-t-2xl p-5 text-white">
+                <div className="premium-panel topographic p-5 text-white">
                   <div className="flex items-start justify-between">
                     <div>
                       <p className="text-forest-300 text-[10px] uppercase tracking-widest mb-1">Adventure Plan</p>
@@ -144,8 +150,14 @@ export default function MyTripsPage() {
                 </div>
 
                 {/* Expanded view */}
+                <AnimatePresence>
                 {selectedTrip?._id === trip._id && trip.itinerary && (
-                  <div className="border-t border-stone-100 p-5 animate-fade-in">
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="border-t border-white/70 p-5 overflow-hidden"
+                  >
                     <h4 className="font-semibold text-stone-800 text-sm mb-3">Itinerary Highlights</h4>
                     <div className="space-y-2">
                       {trip.itinerary.days?.slice(0, 2).map((day) => (
@@ -160,9 +172,10 @@ export default function MyTripsPage() {
                         Total: {trip.itinerary.total_estimated_cost}
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 )}
-              </div>
+                </AnimatePresence>
+              </motion.div>
             ))}
           </div>
         )}

@@ -1,5 +1,6 @@
 import { MapPin, Star, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-700",
@@ -24,7 +25,11 @@ export default function AdventureCard({ adventure, searchParams }) {
   };
 
   return (
-    <div className="adventure-card bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-100 group">
+    <motion.div
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.24, ease: "easeOut" }}
+      className="adventure-card glass-card depth-card rounded-lg overflow-hidden shadow-sm border border-white/60 group"
+    >
       {/* Image */}
       <div className="relative h-48 overflow-hidden bg-stone-200">
         <img
@@ -61,7 +66,11 @@ export default function AdventureCard({ adventure, searchParams }) {
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-5 relative">
+        <div className="flex items-center justify-between mb-3">
+          <span className="section-kicker">Curated Route</span>
+          <span className="text-[11px] text-stone-400 font-medium">AI-ready</span>
+        </div>
         <p className="text-stone-600 text-sm leading-relaxed mb-4 line-clamp-2">
           {adventure.description}
         </p>
@@ -96,12 +105,12 @@ export default function AdventureCard({ adventure, searchParams }) {
 
         <button
           onClick={handleExplore}
-          className="w-full bg-forest-700 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors flex items-center justify-center gap-2 group/btn"
+          className="primary-glow w-full bg-forest-700 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors flex items-center justify-center gap-2 group/btn"
         >
           Generate Itinerary
           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

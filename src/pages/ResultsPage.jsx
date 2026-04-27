@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Search, Filter, SlidersHorizontal, ArrowLeft, Loader } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import AdventureCard from "../components/AdventureCard";
 import WeatherWidget from "../components/WeatherWidget";
 import { getAdventures } from "../utils/api";
@@ -47,25 +48,39 @@ export default function ResultsPage() {
   );
 
   return (
-    <div className="pt-20 min-h-screen bg-[#faf8f5]">
+    <div className="pt-20 min-h-screen app-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="premium-panel topographic rounded-lg p-6 mb-6 text-white flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+          <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-xl hover:bg-stone-200 transition-colors text-stone-600"
+            className="p-2 rounded-xl hover:bg-white/10 transition-colors text-white"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-display font-bold text-stone-900">
+            <h1 className="text-2xl font-display font-bold text-white">
               {searchParams.location
                 ? `Adventures near ${searchParams.location}`
                 : "Explore Destinations"}
             </h1>
-            <p className="text-stone-500 text-sm">
-              {filtered.length} adventures found
+            <p className="text-forest-100/75 text-sm mt-1 max-w-xl">
+              {filtered.length} adventures found with terrain, activity style, weather context, and AI planning hooks ready to explore.
             </p>
+          </div>
+          </div>
+          <div className="grid grid-cols-3 gap-3 min-w-[280px]">
+            {[
+              ["Mode", activity],
+              ["Grade", difficulty],
+              ["Matches", filtered.length],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-lg bg-white/10 border border-white/10 px-4 py-3 text-center">
+                <div className="text-[10px] uppercase tracking-widest text-forest-100/60">{label}</div>
+                <div className="text-sm font-bold mt-1">{value}</div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -73,7 +88,7 @@ export default function ResultsPage() {
           {/* Main content */}
           <div className="flex-1">
             {/* Search + Filter bar */}
-            <div className="flex gap-3 mb-6">
+            <div className="glass-card depth-card rounded-lg p-3 border border-white/70 flex gap-3 mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-stone-400" />
                 <input
@@ -81,7 +96,7 @@ export default function ResultsPage() {
                   placeholder="Search destinations or activities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white"
+                  className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
                 />
               </div>
               <button
@@ -98,8 +113,14 @@ export default function ResultsPage() {
             </div>
 
             {/* Filters */}
+            <AnimatePresence>
             {showFilters && (
-              <div className="bg-white rounded-2xl p-5 border border-stone-100 mb-6 animate-fade-in">
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="glass-card rounded-lg p-5 border border-white/70 mb-6"
+              >
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider block mb-2">
@@ -142,12 +163,13 @@ export default function ResultsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
+            </AnimatePresence>
 
             {/* Generate custom plan CTA */}
             {searchParams.location && (
-              <div className="bg-gradient-to-r from-forest-800 to-forest-900 rounded-2xl p-5 mb-6 text-white flex items-center justify-between">
+              <div className="premium-panel topographic rounded-lg p-5 mb-6 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <p className="font-display font-bold text-lg">
                     Want a custom plan for {searchParams.location}?
@@ -158,7 +180,7 @@ export default function ResultsPage() {
                 </div>
                 <button
                   onClick={() => navigate("/itinerary", { state: { prefill: searchParams } })}
-                  className="flex-shrink-0 bg-earth-500 hover:bg-earth-400 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+                  className="primary-glow flex-shrink-0 bg-earth-500 hover:bg-earth-400 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
                 >
                   Generate Plan →
                 </button>
@@ -181,12 +203,18 @@ export default function ResultsPage() {
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filtered.map((adventure) => (
-                  <AdventureCard
+                {filtered.map((adventure, index) => (
+                  <motion.div
                     key={adventure.id}
-                    adventure={adventure}
-                    searchParams={searchParams}
-                  />
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: index * 0.035 }}
+                  >
+                    <AdventureCard
+                      adventure={adventure}
+                      searchParams={searchParams}
+                    />
+                  </motion.div>
                 ))}
               </div>
             )}
@@ -197,7 +225,7 @@ export default function ResultsPage() {
             <WeatherWidget location={searchParams.location || "Manali"} />
 
             {/* Quick stats */}
-            <div className="bg-white rounded-2xl p-5 border border-stone-100">
+            <div className="glass-card depth-card rounded-lg p-5 border border-white/70">
               <h3 className="font-display font-bold text-stone-800 mb-4">
                 Trip Summary
               </h3>

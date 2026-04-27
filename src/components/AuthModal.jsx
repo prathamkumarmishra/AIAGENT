@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
+import { motion } from "framer-motion";
 import { register, login } from "../utils/api";
 import { useAuth } from "../hooks/useAuth";
 
@@ -34,8 +35,13 @@ export default function AuthModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-slide-up">
+      <div className="absolute inset-0 bg-forest-950/55 backdrop-blur-sm" onClick={onClose} />
+      <motion.div
+        initial={{ opacity: 0, y: 24, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="relative glass depth-card rounded-lg shadow-2xl w-full max-w-md p-8"
+      >
         <button onClick={onClose} className="absolute top-4 right-4 p-1.5 text-stone-400 hover:text-stone-600 rounded-lg hover:bg-stone-100">
           <X className="w-5 h-5" />
         </button>
@@ -44,8 +50,8 @@ export default function AuthModal({ isOpen, onClose }) {
           <h2 className="text-2xl font-display font-bold text-stone-900">
             {mode === "login" ? "Welcome back" : "Join WildPath"}
           </h2>
-          <p className="text-stone-500 mt-1 text-sm">
-            {mode === "login" ? "Sign in to save and track your adventures" : "Create an account to start your adventure"}
+          <p className="text-stone-500 mt-1 text-sm leading-relaxed">
+            {mode === "login" ? "Sign in to keep your saved plans, field notes, and future routes close." : "Create an account to save itineraries and build your own adventure library."}
           </p>
         </div>
 
@@ -64,7 +70,7 @@ export default function AuthModal({ isOpen, onClose }) {
                 placeholder="Full name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
                 required
               />
             </div>
@@ -76,7 +82,7 @@ export default function AuthModal({ isOpen, onClose }) {
               placeholder="Email address"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
               required
             />
           </div>
@@ -87,7 +93,7 @@ export default function AuthModal({ isOpen, onClose }) {
               placeholder="Password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full pl-10 pr-10 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+              className="w-full pl-10 pr-10 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
               required
             />
             <button
@@ -102,7 +108,7 @@ export default function AuthModal({ isOpen, onClose }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-forest-700 text-white py-3 rounded-xl font-medium hover:bg-forest-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="primary-glow w-full bg-forest-700 text-white py-3 rounded-xl font-medium hover:bg-forest-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? "Please wait..." : mode === "login" ? "Sign In" : "Create Account"}
           </button>
@@ -117,7 +123,7 @@ export default function AuthModal({ isOpen, onClose }) {
             {mode === "login" ? "Sign up" : "Sign in"}
           </button>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -93,7 +93,7 @@ export default function ItineraryPage() {
   };
 
   return (
-    <div className="pt-20 min-h-screen bg-[#faf8f5]">
+    <div className="pt-20 min-h-screen app-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back */}
         <button
@@ -104,10 +104,31 @@ export default function ItineraryPage() {
           Back
         </button>
 
+        <div className="premium-panel topographic rounded-lg p-6 mb-8 text-white">
+          <p className="section-kicker mb-3 text-earth-200">AI Expedition Studio</p>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+            <div>
+              <h1 className="font-display font-bold text-3xl">
+                Turn a destination into a field-ready plan
+              </h1>
+              <p className="text-forest-100/75 mt-2 max-w-3xl leading-relaxed">
+                Add your trip basics and WildPath will compose a day-wise itinerary with activities, packing cues, budget logic, safety guidance, and timing that feels natural on the ground.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-3 min-w-[280px]">
+              {["Route", "Gear", "Safety"].map((item) => (
+                <div key={item} className="rounded-lg bg-white/10 border border-white/10 px-4 py-3 text-center text-sm font-semibold">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Form Sidebar */}
           <div className="lg:col-span-1 space-y-5">
-            <div className="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm sticky top-24">
+            <div className="glass-card depth-card rounded-lg p-6 border border-white/70 sticky top-24">
               <h2 className="font-display font-bold text-xl text-stone-900 mb-5">
                 Generate AI Itinerary
               </h2>
@@ -125,7 +146,7 @@ export default function ItineraryPage() {
                       placeholder="e.g. Manali, Himachal Pradesh"
                       value={form.location}
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500"
+                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
                       required
                     />
                   </div>
@@ -145,7 +166,7 @@ export default function ItineraryPage() {
                       placeholder="e.g. 3"
                       value={form.days}
                       onChange={(e) => setForm({ ...form, days: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500"
+                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
                       required
                     />
                   </div>
@@ -163,7 +184,7 @@ export default function ItineraryPage() {
                       placeholder="e.g. 15000"
                       value={form.budget}
                       onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500"
+                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
                       required
                     />
                   </div>
@@ -201,7 +222,7 @@ export default function ItineraryPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-forest-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-forest-600 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="primary-glow w-full bg-forest-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-forest-600 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -225,7 +246,7 @@ export default function ItineraryPage() {
           {/* Itinerary Output */}
           <div className="lg:col-span-2" ref={itineraryRef}>
             {loading && (
-              <div className="bg-white rounded-2xl p-12 border border-stone-100 text-center animate-fade-in">
+              <div className="glass-card depth-card rounded-lg p-12 border border-white/70 text-center animate-fade-in">
                 <div className="w-16 h-16 bg-forest-50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Loader className="w-8 h-8 text-forest-600 animate-spin" />
                 </div>
@@ -244,7 +265,7 @@ export default function ItineraryPage() {
             )}
 
             {!loading && !itinerary && (
-              <div className="bg-white rounded-2xl p-12 border border-stone-100 text-center">
+              <div className="glass-card depth-card rounded-lg p-12 border border-white/70 text-center">
                 <div className="text-6xl mb-4">🗺️</div>
                 <h3 className="font-display font-bold text-xl text-stone-900 mb-2">
                   Ready to Plan Your Adventure?
@@ -258,7 +279,7 @@ export default function ItineraryPage() {
             {itinerary && (
               <div className="space-y-6 animate-fade-in">
                 {/* Header card */}
-                <div className="bg-gradient-to-br from-forest-800 to-forest-900 rounded-2xl p-6 text-white">
+                <div className="premium-panel topographic rounded-lg p-6 text-white">
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <p className="text-forest-300 text-xs uppercase tracking-widest mb-1">AI Generated Plan</p>
@@ -312,7 +333,7 @@ export default function ItineraryPage() {
                 </div>
 
                 {/* Day-wise plan */}
-                <div className="bg-white rounded-2xl border border-stone-100 overflow-hidden">
+                <div className="glass-card depth-card rounded-lg border border-white/70 overflow-hidden">
                   <div className="px-6 py-4 border-b border-stone-100">
                     <h3 className="font-display font-bold text-lg text-stone-900">Day-wise Itinerary</h3>
                   </div>
@@ -363,7 +384,7 @@ export default function ItineraryPage() {
                 {/* Grid cards */}
                 <div className="grid sm:grid-cols-2 gap-5">
                   {/* Packing list */}
-                  <div className="bg-white rounded-2xl p-5 border border-stone-100">
+                  <div className="glass-card hover-lift rounded-lg p-5 border border-white/70">
                     <div className="flex items-center gap-2 mb-4">
                       <Backpack className="w-5 h-5 text-forest-700" />
                       <h3 className="font-display font-bold text-stone-900">Packing List</h3>
@@ -379,7 +400,7 @@ export default function ItineraryPage() {
                   </div>
 
                   {/* Safety tips */}
-                  <div className="bg-white rounded-2xl p-5 border border-stone-100">
+                  <div className="glass-card hover-lift rounded-lg p-5 border border-white/70">
                     <div className="flex items-center gap-2 mb-4">
                       <Shield className="w-5 h-5 text-earth-600" />
                       <h3 className="font-display font-bold text-stone-900">Safety Tips</h3>
@@ -397,7 +418,7 @@ export default function ItineraryPage() {
 
                 {/* Activities & Highlights */}
                 {itinerary.activities?.length > 0 && (
-                  <div className="bg-white rounded-2xl p-5 border border-stone-100">
+                  <div className="glass-card hover-lift rounded-lg p-5 border border-white/70">
                     <h3 className="font-display font-bold text-stone-900 mb-3">Recommended Activities</h3>
                     <div className="flex flex-wrap gap-2">
                       {itinerary.activities.map((act) => (
