@@ -38,6 +38,7 @@ export default function App() {
     <AuthProvider>
       <Router>
         <div className="min-h-screen app-surface">
+          {/* Main App Container */}
           <Navbar />
           <AnimatedRoutes />
           <ChatBot />
