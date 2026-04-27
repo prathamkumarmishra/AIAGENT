@@ -47,10 +47,12 @@ const connectDB = async () => {
 
 connectDB();
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📍 API available at http://localhost:${PORT}/api`);
-});
+// Start server (only locally, not on Vercel)
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📍 API available at http://localhost:${PORT}/api`);
+  });
+}
 
 module.exports = app;
