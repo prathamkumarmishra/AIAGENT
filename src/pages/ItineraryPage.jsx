@@ -111,7 +111,7 @@ export default function ItineraryPage() {
               <h1 className="font-display font-bold text-3xl">
                 Turn a destination into a field-ready plan
               </h1>
-              <p className="text-forest-100/75 mt-2 max-w-3xl leading-relaxed">
+              <p className="text-sunlight-100/75 mt-2 max-w-3xl leading-relaxed">
                 Add your trip basics and WildPath will compose a day-wise itinerary with activities, packing cues, budget logic, safety guidance, and timing that feels natural on the ground.
               </p>
             </div>
@@ -127,8 +127,8 @@ export default function ItineraryPage() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Form Sidebar */}
-          <div className="lg:col-span-1 space-y-5">
-            <div className="glass-card depth-card rounded-lg p-6 border border-white/70 sticky top-24">
+          <div className="lg:col-span-1 space-y-8">
+            <div className="glass-card depth-card rounded-lg p-6 border border-white/70 sticky top-24 z-20">
               <h2 className="font-display font-bold text-xl text-stone-900 mb-5">
                 Generate AI Itinerary
               </h2>
@@ -146,7 +146,7 @@ export default function ItineraryPage() {
                       placeholder="e.g. Manali, Himachal Pradesh"
                       value={form.location}
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                       required
                     />
                   </div>
@@ -166,7 +166,7 @@ export default function ItineraryPage() {
                       placeholder="e.g. 3"
                       value={form.days}
                       onChange={(e) => setForm({ ...form, days: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                       required
                     />
                   </div>
@@ -184,7 +184,7 @@ export default function ItineraryPage() {
                       placeholder="e.g. 15000"
                       value={form.budget}
                       onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                      className="w-full pl-9 pr-3 py-2.5 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                       required
                     />
                   </div>
@@ -203,8 +203,8 @@ export default function ItineraryPage() {
                         onClick={() => toggleActivity(label)}
                         className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium border transition-all ${
                           form.activities.includes(label)
-                            ? "bg-forest-700 text-white border-forest-700"
-                            : "bg-stone-50 text-stone-600 border-stone-200 hover:border-forest-400"
+                            ? "bg-sunlight-700 text-white border-sunlight-700"
+                            : "bg-stone-50 text-stone-600 border-stone-200 hover:border-sunlight-400"
                         }`}
                       >
                         {icon} {label}
@@ -222,7 +222,7 @@ export default function ItineraryPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="primary-glow w-full bg-forest-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-forest-600 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="primary-glow w-full bg-sunlight-700 text-white py-3 rounded-xl font-semibold text-sm hover:bg-sunlight-600 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -247,8 +247,8 @@ export default function ItineraryPage() {
           <div className="lg:col-span-2" ref={itineraryRef}>
             {loading && (
               <div className="glass-card depth-card rounded-lg p-12 border border-white/70 text-center animate-fade-in">
-                <div className="w-16 h-16 bg-forest-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Loader className="w-8 h-8 text-forest-600 animate-spin" />
+                <div className="w-16 h-16 bg-sunlight-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Loader className="w-8 h-8 text-sunlight-600 animate-spin" />
                 </div>
                 <h3 className="font-display font-bold text-xl text-stone-900 mb-2">
                   AI is crafting your adventure...
@@ -257,9 +257,9 @@ export default function ItineraryPage() {
                   Analyzing {form.location}, weather patterns, and your preferences
                 </p>
                 <div className="flex justify-center gap-1.5 mt-6">
-                  <span className="w-2.5 h-2.5 bg-forest-400 rounded-full dot-1" />
-                  <span className="w-2.5 h-2.5 bg-forest-400 rounded-full dot-2" />
-                  <span className="w-2.5 h-2.5 bg-forest-400 rounded-full dot-3" />
+                  <span className="w-2.5 h-2.5 bg-sunlight-400 rounded-full dot-1" />
+                  <span className="w-2.5 h-2.5 bg-sunlight-400 rounded-full dot-2" />
+                  <span className="w-2.5 h-2.5 bg-sunlight-400 rounded-full dot-3" />
                 </div>
               </div>
             )}
@@ -282,9 +282,9 @@ export default function ItineraryPage() {
                 <div className="premium-panel topographic rounded-lg p-6 text-white">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <p className="text-forest-300 text-xs uppercase tracking-widest mb-1">AI Generated Plan</p>
+                      <p className="text-sunlight-300 text-xs uppercase tracking-widest mb-1">AI Generated Plan</p>
                       <h2 className="font-display font-bold text-2xl">{itinerary.title}</h2>
-                      <div className="flex items-center gap-2 mt-2 text-forest-300 text-sm">
+                      <div className="flex items-center gap-2 mt-2 text-sunlight-300 text-sm">
                         <MapPin className="w-3.5 h-3.5" />
                         {itinerary.location}
                       </div>
@@ -322,7 +322,7 @@ export default function ItineraryPage() {
                       { icon: <Clock className="w-4 h-4" />, label: "Best Time", value: itinerary.best_time_to_visit?.split(" ").slice(0, 2).join(" ") || "Year-round" },
                     ].map((stat) => (
                       <div key={stat.label} className="bg-white/10 rounded-xl p-3">
-                        <div className="flex items-center gap-1.5 text-forest-300 text-xs mb-1">
+                        <div className="flex items-center gap-1.5 text-sunlight-300 text-xs mb-1">
                           {stat.icon}
                           {stat.label}
                         </div>
@@ -345,7 +345,7 @@ export default function ItineraryPage() {
                           className="w-full flex items-center justify-between group"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-forest-700 text-white rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0">
+                            <div className="w-10 h-10 bg-sunlight-700 text-white rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0">
                               D{day.day}
                             </div>
                             <div className="text-left">
@@ -354,7 +354,7 @@ export default function ItineraryPage() {
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className="text-forest-700 font-semibold text-sm">{day.cost}</span>
+                            <span className="text-sunlight-700 font-semibold text-sm">{day.cost}</span>
                             {expandedDay === i
                               ? <ChevronUp className="w-4 h-4 text-stone-400" />
                               : <ChevronDown className="w-4 h-4 text-stone-400" />
@@ -386,13 +386,13 @@ export default function ItineraryPage() {
                   {/* Packing list */}
                   <div className="glass-card hover-lift rounded-lg p-5 border border-white/70">
                     <div className="flex items-center gap-2 mb-4">
-                      <Backpack className="w-5 h-5 text-forest-700" />
+                      <Backpack className="w-5 h-5 text-sunlight-700" />
                       <h3 className="font-display font-bold text-stone-900">Packing List</h3>
                     </div>
                     <ul className="space-y-2">
                       {itinerary.packing_list?.map((item) => (
                         <li key={item} className="flex items-start gap-2 text-sm text-stone-600">
-                          <CheckCircle className="w-4 h-4 text-forest-500 flex-shrink-0 mt-0.5" />
+                          <CheckCircle className="w-4 h-4 text-sunlight-500 flex-shrink-0 mt-0.5" />
                           {item}
                         </li>
                       ))}
@@ -422,7 +422,7 @@ export default function ItineraryPage() {
                     <h3 className="font-display font-bold text-stone-900 mb-3">Recommended Activities</h3>
                     <div className="flex flex-wrap gap-2">
                       {itinerary.activities.map((act) => (
-                        <span key={act} className="tag-pill bg-forest-50 text-forest-700 border border-forest-100 text-sm py-1.5 px-4">
+                        <span key={act} className="tag-pill bg-sunlight-50 text-sunlight-700 border border-sunlight-100 text-sm py-1.5 px-4">
                           {act}
                         </span>
                       ))}

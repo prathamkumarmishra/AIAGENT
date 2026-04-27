@@ -20,18 +20,20 @@ export default function Navbar() {
     ...(user ? [{ label: "My Trips", path: "/my-trips", icon: Bookmark }] : []),
   ];
 
+  if (location.pathname === "/login") return null;
+
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-2xl border-b border-white/70 shadow-[0_12px_40px_rgba(13,46,26,0.08)]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-2xl border-b border-white/70 shadow-[0_12px_40px_rgba(69,26,3,0.08)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-9 h-9 bg-gradient-to-br from-forest-700 to-forest-950 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg shadow-forest-900/20">
+              <div className="w-9 h-9 bg-gradient-to-br from-sunlight-700 to-sunlight-950 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg shadow-sunlight-900/20">
                 <Mountain className="w-5 h-5 text-white" />
               </div>
               <span className="font-display font-bold text-xl text-stone-900">
-                Wild<span className="text-forest-600">Path</span>
+                Wild<span className="text-sunlight-600">Path</span>
               </span>
             </Link>
 
@@ -45,7 +47,7 @@ export default function Navbar() {
                     to={link.path}
                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                       isActive(link.path)
-                        ? "bg-forest-900 text-white shadow-lg shadow-forest-900/15"
+                        ? "bg-sunlight-900 text-white shadow-lg shadow-sunlight-900/15"
                         : "text-stone-600 hover:bg-white/80 hover:text-stone-900 hover:shadow-sm"
                     }`}
                   >
@@ -72,13 +74,13 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <button
-                  onClick={() => setAuthOpen(true)}
-                  className="primary-glow flex items-center gap-2 bg-forest-900 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-forest-800 transition-colors"
+                <Link
+                  to="/login"
+                  className="primary-glow flex items-center gap-2 bg-sunlight-900 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-sunlight-800 transition-colors"
                 >
                   <User className="w-4 h-4" />
                   Sign In
-                </button>
+                </Link>
               )}
             </div>
 
@@ -110,7 +112,7 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive(link.path)
-                      ? "bg-forest-900 text-white"
+                      ? "bg-sunlight-900 text-white"
                       : "text-stone-700 hover:bg-stone-100"
                   }`}
                 >
@@ -122,7 +124,7 @@ export default function Navbar() {
             {!user && (
               <button
                 onClick={() => { setAuthOpen(true); setMenuOpen(false); }}
-                className="primary-glow w-full bg-forest-900 text-white px-4 py-2.5 rounded-xl text-sm font-medium"
+                className="primary-glow w-full bg-sunlight-900 text-white px-4 py-2.5 rounded-xl text-sm font-medium"
               >
                 Sign In / Register
               </button>

@@ -1,6 +1,16 @@
 const { generateAdventureItinerary, generateChatResponse } = require("../utils/geminiHelper");
 const Trip = require("../models/Trip");
 
+const createTrip = async (data) => {
+  const trip = new Trip(data);
+  await trip.validate();
+  const now = new Date();
+  trip.createdAt = now;
+  trip.updatedAt = now;
+  await Trip.collection.insertOne(trip.toObject({ depopulate: true }));
+  return trip;
+};
+
 // Popular destinations data
 const popularDestinations = [
   {
@@ -91,6 +101,19 @@ const getAdventures = async (req, res) => {
         d.difficulty.toLowerCase().includes(difficulty.toLowerCase())
       );
     }
+    if (budget) {
+      const maxBudget = Number.parseInt(budget, 10);
+      if (Number.isFinite(maxBudget)) {
+        filtered = filtered.filter((d) => {
+          const budgetNumbers = d.avgBudget.match(/\d[\d,]*/g) || [];
+          const destinationMin = Number.parseInt(
+            budgetNumbers[0]?.replace(/,/g, ""),
+            10
+          );
+          return Number.isFinite(destinationMin) && destinationMin <= maxBudget;
+        });
+      }
+    }
 
     res.json({ success: true, count: filtered.length, data: filtered });
   } catch (error) {
@@ -104,6 +127,7 @@ const getAdventures = async (req, res) => {
 const generatePlan = async (req, res) => {
   try {
     const { location, budget, days, activities } = req.body;
+    const parsedDays = Number.parseInt(days, 10);
 
     if (!location || !budget || !days) {
       return res.status(400).json({
@@ -111,22 +135,28 @@ const generatePlan = async (req, res) => {
         message: "Location, budget, and days are required",
       });
     }
+    if (!Number.isInteger(parsedDays) || parsedDays < 1 || parsedDays > 14) {
+      return res.status(400).json({
+        success: false,
+        message: "Days must be a number between 1 and 14",
+      });
+    }
 
     const itinerary = await generateAdventureItinerary({
       location,
       budget,
-      days: parseInt(days),
+      days: parsedDays,
       activities: activities || ["trekking", "camping"],
     });
 
     // Save trip if user is authenticated
     if (req.user) {
-      const trip = await Trip.create({
+      const trip = await createTrip({
         user: req.user._id,
         name: itinerary.title,
         location,
         budget,
-        duration: days,
+        duration: parsedDays,
         activities: activities || [],
         itinerary,
       });
@@ -149,13 +179,27 @@ const generatePlan = async (req, res) => {
 const saveTrip = async (req, res) => {
   try {
     const { name, location, budget, duration, activities, itinerary } = req.body;
+    const parsedDuration = Number.parseInt(duration, 10);
 
-    const trip = await Trip.create({
+    if (!name || !location || !budget || !duration || !itinerary) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, location, budget, duration, and itinerary are required",
+      });
+    }
+    if (!Number.isInteger(parsedDuration) || parsedDuration < 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Duration must be a positive number",
+      });
+    }
+
+    const trip = await createTrip({
       user: req.user._id,
       name,
       location,
       budget,
-      duration,
+      duration: parsedDuration,
       activities,
       itinerary,
     });

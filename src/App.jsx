@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./hooks/useAuth";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -7,7 +8,10 @@ import ResultsPage from "./pages/ResultsPage";
 import ItineraryPage from "./pages/ItineraryPage";
 import MapPage from "./pages/MapPage";
 import MyTripsPage from "./pages/MyTripsPage";
+import LoginPage from "./pages/LoginPage";
 import ChatBot from "./components/ChatBot";
+
+const GOOGLE_CLIENT_ID = "966286452649-o2ftmcn7f8matv5sig4sbihpnlbkagpg.apps.googleusercontent.com";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -27,6 +31,7 @@ function AnimatedRoutes() {
           <Route path="/itinerary" element={<ItineraryPage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/my-trips" element={<MyTripsPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </motion.main>
     </AnimatePresence>
@@ -35,15 +40,16 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen app-surface">
-          {/* Main App Container */}
-          <Navbar />
-          <AnimatedRoutes />
-          <ChatBot />
-        </div>
-      </Router>
-    </AuthProvider>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <Router>
+          <div className="min-h-screen app-surface">
+            <Navbar />
+            <AnimatedRoutes />
+            <ChatBot />
+          </div>
+        </Router>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }

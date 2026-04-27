@@ -1,8 +1,54 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Initialize Google Generative AI
-// We use the GOOGLE_GEMINI_API_KEY environment variable. If not set, it will fail when called.
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.GOOGLE_GEMINI_API_KEY || "");
+const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GEMINI_API_KEY;
+const modelName = process.env.GEMINI_MODEL || "gemini-2.5-flash-lite";
+const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
+
+const normalizeActivities = (activities) => {
+  if (Array.isArray(activities) && activities.length > 0) return activities;
+  if (typeof activities === "string" && activities.trim()) {
+    return activities.split(",").map((activity) => activity.trim()).filter(Boolean);
+  }
+  return ["Trekking", "Camping", "Nature Walk"];
+};
+
+const createDemoItinerary = ({ location, budget, days, activities }) => {
+  const activityList = normalizeActivities(activities);
+  const totalDays = Number.isInteger(days) && days > 0 ? days : 1;
+
+  return {
+    title: `${location} Outdoor Adventure`,
+    location,
+    total_estimated_cost: `INR ${budget}`,
+    best_time_to_visit: "Plan around clear weather and avoid heavy rain alerts.",
+    days: Array.from({ length: totalDays }, (_, index) => ({
+      day: index + 1,
+      plan:
+        index === 0
+          ? `Arrive in ${location}, settle in, and take a short orientation walk before your first activity.`
+          : `Continue the trip with a balanced mix of ${activityList.join(", ")} and recovery time.`,
+      activities: activityList.slice(0, 3),
+      cost: `INR ${Math.ceil(Number(budget) / totalDays) || budget}`,
+    })),
+    activities: activityList,
+    packing_list: [
+      "Reusable water bottle",
+      "Weather-appropriate layers",
+      "First aid kit",
+      "Navigation backup",
+      "Trail snacks",
+    ],
+    safety_tips: [
+      "Check local weather before starting each activity.",
+      "Share your route and expected return time with someone you trust.",
+      "Use licensed local guides for technical or remote routes.",
+    ],
+    highlights: [`Outdoor activities near ${location}`, "Flexible demo itinerary"],
+    difficulty_level: "Moderate",
+    fitness_required: "Basic endurance for walking and light outdoor activity.",
+    demo: true,
+  };
+};
 
 /**
  * Generate outdoor adventure itinerary using Gemini AI
@@ -16,6 +62,17 @@ const generateAdventureItinerary = async ({
   const activitiesList = Array.isArray(activities)
     ? activities.join(", ")
     : activities;
+
+  const parsedDays = Number.parseInt(days, 10);
+
+  if (!genAI) {
+    return createDemoItinerary({
+      location,
+      budget,
+      days: parsedDays,
+      activities,
+    });
+  }
 
   const prompt = `You are an expert outdoor adventure planner. Create a detailed outdoor adventure itinerary based on:
 Location: ${location}
@@ -54,7 +111,7 @@ Return ONLY a valid JSON object (no markdown, no backticks, no extra text) with 
   "fitness_required": "Description of fitness level needed"
 }`;
 
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: modelName });
   const result = await model.generateContent(prompt);
   const responseText = result.response.text();
 
@@ -71,6 +128,10 @@ Return ONLY a valid JSON object (no markdown, no backticks, no extra text) with 
  * Generate AI chatbot response
  */
 const generateChatResponse = async (userMessage, context = "") => {
+  if (!genAI) {
+    return "I can help with destination ideas, packing, safety, budget planning, and day-wise adventure routes. Add a Gemini API key for live AI responses.";
+  }
+
   const prompt = `You are an expert outdoor adventure planner assistant. Help users plan their outdoor adventures, give safety tips, suggest gear, and provide destination information.
   
 ${context ? `Context: ${context}` : ""}
@@ -79,7 +140,7 @@ User: ${userMessage}
 
 Provide a helpful, concise response focused on outdoor adventure planning.`;
 
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: modelName });
   const result = await model.generateContent(prompt);
   return result.response.text();
 };

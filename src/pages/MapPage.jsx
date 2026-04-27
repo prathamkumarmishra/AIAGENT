@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 const DESTINATIONS = [
   { id: 1, name: "Manali", lat: 32.2396, lng: 77.1887, type: "Mountain", activities: ["Trekking", "Skiing", "Camping"], rating: 4.8 },
   { id: 2, name: "Rishikesh", lat: 30.0869, lng: 78.2676, type: "River", activities: ["Rafting", "Bungee", "Yoga"], rating: 4.7 },
-  { id: 3, name: "Coorg", lat: 12.3375, lng: 75.8069, type: "Forest", activities: ["Trekking", "Bird Watching"], rating: 4.6 },
+  { id: 3, name: "Coorg", lat: 12.3375, lng: 75.8069, type: "sunlight", activities: ["Trekking", "Bird Watching"], rating: 4.6 },
   { id: 4, name: "Spiti Valley", lat: 32.2464, lng: 78.0337, type: "Desert", activities: ["Trekking", "Camping", "Motorcycling"], rating: 4.9 },
   { id: 5, name: "Andaman", lat: 11.7401, lng: 92.6586, type: "Beach", activities: ["Scuba", "Snorkeling", "Kayaking"], rating: 4.8 },
   { id: 6, name: "Valley of Flowers", lat: 30.7283, lng: 79.6050, type: "Alpine", activities: ["Trekking", "Photography"], rating: 4.7 },
@@ -28,7 +28,7 @@ const DESTINATIONS = [
 const typeColors = {
   Mountain: "#15803d",
   River: "#0284c7",
-  Forest: "#65a30d",
+  sunlight: "#65a30d",
   Desert: "#d97706",
   Beach: "#0891b2",
   Alpine: "#7c3aed",
@@ -66,7 +66,7 @@ export default function MapPage() {
       <div className="flex-shrink-0 bg-white/75 backdrop-blur-2xl border-b border-white/70 px-4 py-3 shadow-[0_12px_35px_rgba(13,46,26,0.08)]">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 mr-2">
-            <div className="w-9 h-9 rounded-xl bg-forest-900 text-white flex items-center justify-center shadow-lg shadow-forest-900/20">
+            <div className="w-9 h-9 rounded-xl bg-sunlight-900 text-white flex items-center justify-center shadow-lg shadow-sunlight-900/20">
               <Mountain className="w-5 h-5" />
             </div>
             <div>
@@ -82,7 +82,7 @@ export default function MapPage() {
               placeholder="Search destinations..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+              className="w-full pl-9 pr-3 py-2 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
             />
           </div>
 
@@ -93,7 +93,7 @@ export default function MapPage() {
                 onClick={() => setFilter(t)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
                   filter === t
-                    ? "bg-forest-700 text-white border-forest-700"
+                    ? "bg-sunlight-700 text-white border-sunlight-700"
                     : "bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-300"
                 }`}
               >
@@ -119,7 +119,7 @@ export default function MapPage() {
                 onClick={() => setSelectedDest(dest)}
                 className={`w-full text-left p-3 rounded-xl border transition-all ${
                   selectedDest?.id === dest.id
-                    ? "bg-white border-forest-300 shadow-lg shadow-forest-900/10"
+                    ? "bg-white border-sunlight-300 shadow-lg shadow-sunlight-900/10"
                     : "bg-white/65 border-white/70 hover:border-earth-300 hover:shadow-md"
                 }`}
               >
@@ -136,7 +136,7 @@ export default function MapPage() {
                 </span>
                 <div className="flex flex-wrap gap-1 mt-1.5">
                   {dest.activities.slice(0, 2).map((a) => (
-                    <span key={a} className="text-[10px] bg-forest-50 text-forest-600 px-1.5 py-0.5 rounded-full">
+                    <span key={a} className="text-[10px] bg-sunlight-50 text-sunlight-600 px-1.5 py-0.5 rounded-full">
                       {a}
                     </span>
                   ))}
@@ -212,7 +212,7 @@ export default function MapPage() {
               <p className="text-xs text-stone-500 mb-2">{selectedDest.type} Adventure Destination</p>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {selectedDest.activities.map((a) => (
-                  <span key={a} className="tag-pill bg-forest-50 text-forest-700 border border-forest-100 text-[11px]">
+                  <span key={a} className="tag-pill bg-sunlight-50 text-sunlight-700 border border-sunlight-100 text-[11px]">
                     {a}
                   </span>
                 ))}
@@ -220,7 +220,7 @@ export default function MapPage() {
               <div className="flex gap-2">
                 <button
                   onClick={() => navigate("/itinerary", { state: { prefill: { location: selectedDest.name, activities: selectedDest.activities } } })}
-                  className="primary-glow flex-1 bg-forest-700 text-white text-xs py-2 rounded-xl text-center font-medium hover:bg-forest-600 transition-colors"
+                  className="primary-glow flex-1 bg-sunlight-700 text-white text-xs py-2 rounded-xl text-center font-medium hover:bg-sunlight-600 transition-colors"
                 >
                   Plan Adventure
                 </button>

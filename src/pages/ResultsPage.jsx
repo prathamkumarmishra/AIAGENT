@@ -65,7 +65,7 @@ export default function ResultsPage() {
                 ? `Adventures near ${searchParams.location}`
                 : "Explore Destinations"}
             </h1>
-            <p className="text-forest-100/75 text-sm mt-1 max-w-xl">
+            <p className="text-sunlight-100/75 text-sm mt-1 max-w-xl">
               {filtered.length} adventures found with terrain, activity style, weather context, and AI planning hooks ready to explore.
             </p>
           </div>
@@ -77,7 +77,7 @@ export default function ResultsPage() {
               ["Matches", filtered.length],
             ].map(([label, value]) => (
               <div key={label} className="rounded-lg bg-white/10 border border-white/10 px-4 py-3 text-center">
-                <div className="text-[10px] uppercase tracking-widest text-forest-100/60">{label}</div>
+                <div className="text-[10px] uppercase tracking-widest text-sunlight-100/60">{label}</div>
                 <div className="text-sm font-bold mt-1">{value}</div>
               </div>
             ))}
@@ -96,14 +96,14 @@ export default function ResultsPage() {
                   placeholder="Search destinations or activities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                  className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                 />
               </div>
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm font-medium transition-all ${
                   showFilters
-                    ? "bg-forest-700 text-white border-forest-700"
+                    ? "bg-sunlight-700 text-white border-sunlight-700"
                     : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"
                 }`}
               >
@@ -133,7 +133,7 @@ export default function ResultsPage() {
                           onClick={() => setDifficulty(d)}
                           className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
                             difficulty === d
-                              ? "bg-forest-700 text-white border-forest-700"
+                              ? "bg-sunlight-700 text-white border-sunlight-700"
                               : "bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-300"
                           }`}
                         >
@@ -153,7 +153,7 @@ export default function ResultsPage() {
                           onClick={() => setActivity(a)}
                           className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
                             activity === a
-                              ? "bg-forest-700 text-white border-forest-700"
+                              ? "bg-sunlight-700 text-white border-sunlight-700"
                               : "bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-300"
                           }`}
                         >
@@ -174,7 +174,7 @@ export default function ResultsPage() {
                   <p className="font-display font-bold text-lg">
                     Want a custom plan for {searchParams.location}?
                   </p>
-                  <p className="text-forest-300 text-sm mt-0.5">
+                  <p className="text-sunlight-300 text-sm mt-0.5">
                     Get an AI-generated itinerary tailored to your preferences
                   </p>
                 </div>
@@ -191,7 +191,7 @@ export default function ResultsPage() {
             {loading ? (
               <div className="flex items-center justify-center py-20">
                 <div className="text-center">
-                  <Loader className="w-8 h-8 animate-spin text-forest-600 mx-auto mb-3" />
+                  <Loader className="w-8 h-8 animate-spin text-sunlight-600 mx-auto mb-3" />
                   <p className="text-stone-500 text-sm">Loading adventures...</p>
                 </div>
               </div>
@@ -245,7 +245,7 @@ export default function ResultsPage() {
                 {searchParams.budget && (
                   <div className="flex justify-between text-sm">
                     <span className="text-stone-500">Budget</span>
-                    <span className="font-medium text-forest-700">₹{searchParams.budget}</span>
+                    <span className="font-medium text-sunlight-700">₹{searchParams.budget}</span>
                   </div>
                 )}
                 {searchParams.activities?.length > 0 && (
@@ -253,7 +253,7 @@ export default function ResultsPage() {
                     <span className="text-stone-500 block mb-1.5">Activities</span>
                     <div className="flex flex-wrap gap-1">
                       {searchParams.activities.map((a) => (
-                        <span key={a} className="tag-pill bg-forest-50 text-forest-700 text-[11px]">{a}</span>
+                        <span key={a} className="tag-pill bg-sunlight-50 text-sunlight-700 text-[11px]">{a}</span>
                       ))}
                     </div>
                   </div>

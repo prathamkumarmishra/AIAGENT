@@ -25,7 +25,7 @@ export default function MyTripsPage() {
   if (authLoading) {
     return (
       <div className="pt-20 min-h-screen flex items-center justify-center">
-        <Loader className="w-8 h-8 animate-spin text-forest-600" />
+        <Loader className="w-8 h-8 animate-spin text-sunlight-600" />
       </div>
     );
   }
@@ -41,7 +41,7 @@ export default function MyTripsPage() {
           <p className="text-stone-500 text-sm mb-6">Create an account to save and revisit your adventure plans.</p>
           <button
             onClick={() => navigate("/")}
-            className="primary-glow bg-forest-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors"
+            className="primary-glow bg-sunlight-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium hover:bg-sunlight-600 transition-colors"
           >
             Go to Home
           </button>
@@ -57,7 +57,7 @@ export default function MyTripsPage() {
           <div>
             <p className="section-kicker mb-3 text-earth-200">Saved Field Library</p>
             <h1 className="text-3xl font-display font-bold">My Adventures</h1>
-            <p className="text-forest-100/75 mt-1 text-sm max-w-xl">
+            <p className="text-sunlight-100/75 mt-1 text-sm max-w-xl">
               Your saved trip plans, route ideas, itinerary highlights, and future weekend sparks in one quiet place.
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function MyTripsPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader className="w-8 h-8 animate-spin text-forest-600" />
+            <Loader className="w-8 h-8 animate-spin text-sunlight-600" />
           </div>
         ) : trips.length === 0 ? (
           <div className="glass-card depth-card rounded-lg p-14 border border-white/70 text-center">
@@ -80,7 +80,7 @@ export default function MyTripsPage() {
             <p className="text-stone-500 text-sm mb-6">Generate your first AI adventure plan and save it here!</p>
             <button
               onClick={() => navigate("/itinerary")}
-              className="primary-glow bg-forest-700 text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-forest-600"
+              className="primary-glow bg-sunlight-700 text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-sunlight-600"
             >
               Plan an Adventure →
             </button>
@@ -99,10 +99,10 @@ export default function MyTripsPage() {
                 <div className="premium-panel topographic p-5 text-white">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-forest-300 text-[10px] uppercase tracking-widest mb-1">Adventure Plan</p>
+                      <p className="text-sunlight-300 text-[10px] uppercase tracking-widest mb-1">Adventure Plan</p>
                       <h3 className="font-display font-bold text-lg leading-snug">{trip.name}</h3>
                     </div>
-                    <Bookmark className="w-4 h-4 text-forest-400 flex-shrink-0 mt-0.5" />
+                    <Bookmark className="w-4 h-4 text-sunlight-400 flex-shrink-0 mt-0.5" />
                   </div>
                 </div>
 
@@ -110,11 +110,11 @@ export default function MyTripsPage() {
                 <div className="p-5">
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center gap-2 text-sm text-stone-600">
-                      <MapPin className="w-4 h-4 text-forest-600" />
+                      <MapPin className="w-4 h-4 text-sunlight-600" />
                       {trip.location}
                     </div>
                     <div className="flex items-center gap-2 text-sm text-stone-600">
-                      <Calendar className="w-4 h-4 text-forest-600" />
+                      <Calendar className="w-4 h-4 text-sunlight-600" />
                       {trip.duration} days • Budget ₹{trip.budget}
                     </div>
                     {trip.rating && (
@@ -130,7 +130,7 @@ export default function MyTripsPage() {
                   {trip.activities?.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mb-4">
                       {trip.activities.slice(0, 3).map((a) => (
-                        <span key={a} className="tag-pill bg-forest-50 text-forest-700 border border-forest-100 text-[11px]">
+                        <span key={a} className="tag-pill bg-sunlight-50 text-sunlight-700 border border-sunlight-100 text-[11px]">
                           {a}
                         </span>
                       ))}
@@ -143,7 +143,7 @@ export default function MyTripsPage() {
                         day: "numeric", month: "short", year: "numeric"
                       })}
                     </span>
-                    <span className="text-forest-600 text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                    <span className="text-sunlight-600 text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                       View Plan <ChevronRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -162,13 +162,13 @@ export default function MyTripsPage() {
                     <div className="space-y-2">
                       {trip.itinerary.days?.slice(0, 2).map((day) => (
                         <div key={day.day} className="text-sm">
-                          <span className="font-medium text-forest-700">Day {day.day}: </span>
+                          <span className="font-medium text-sunlight-700">Day {day.day}: </span>
                           <span className="text-stone-600">{day.plan?.substring(0, 80)}...</span>
                         </div>
                       ))}
                     </div>
                     {trip.itinerary.total_estimated_cost && (
-                      <div className="mt-3 text-sm font-semibold text-forest-700">
+                      <div className="mt-3 text-sm font-semibold text-sunlight-700">
                         Total: {trip.itinerary.total_estimated_cost}
                       </div>
                     )}

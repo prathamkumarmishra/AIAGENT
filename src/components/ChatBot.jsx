@@ -51,10 +51,11 @@ export default function ChatBot() {
         ...prev,
         { role: "bot", text: res.data.data.response },
       ]);
-    } catch {
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || "Sorry, I couldn't connect right now. Please try again!";
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: "Sorry, I couldn't connect right now. Please try again!" },
+        { role: "bot", text: errorMsg },
       ]);
     } finally {
       setLoading(false);
@@ -81,7 +82,7 @@ export default function ChatBot() {
         onClick={() => setOpen(true)}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.96 }}
-        className={`chat-ripple fixed bottom-6 right-6 z-40 w-14 h-14 bg-forest-700 text-white rounded-full shadow-lg hover:bg-forest-600 transition-all flex items-center justify-center ${open ? "hidden" : "flex"}`}
+        className={`chat-ripple fixed bottom-6 right-6 z-40 w-14 h-14 bg-sunlight-700 text-white rounded-full shadow-lg hover:bg-sunlight-600 transition-all flex items-center justify-center ${open ? "hidden" : "flex"}`}
       >
         <MessageCircle className="w-6 h-6" />
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-earth-500 rounded-full text-[9px] font-bold flex items-center justify-center">
@@ -100,14 +101,14 @@ export default function ChatBot() {
           className="fixed bottom-6 right-6 z-50 w-[360px] max-w-[calc(100vw-2rem)] glass rounded-lg shadow-2xl border border-white/60 flex flex-col overflow-hidden"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-forest-900/90 text-white border-b border-white/10">
+          <div className="flex items-center justify-between px-4 py-3 bg-sunlight-900/90 text-white border-b border-white/10">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-forest-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-sunlight-600 rounded-full flex items-center justify-center">
                 <Bot className="w-4 h-4" />
               </div>
               <div>
                 <div className="font-semibold text-sm">WildPath AI</div>
-                <div className="flex items-center gap-1 text-[10px] text-forest-300">
+                <div className="flex items-center gap-1 text-[10px] text-sunlight-300">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                   Terrain, gear, weather
                 </div>
@@ -128,9 +129,9 @@ export default function ChatBot() {
                 transition={{ duration: 0.25 }}
                 className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
               >
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === "bot" ? "bg-forest-100" : "bg-stone-200"}`}>
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === "bot" ? "bg-sunlight-100" : "bg-stone-200"}`}>
                   {msg.role === "bot"
-                    ? <Bot className="w-3.5 h-3.5 text-forest-700" />
+                    ? <Bot className="w-3.5 h-3.5 text-sunlight-700" />
                     : <User className="w-3.5 h-3.5 text-stone-600" />
                   }
                 </div>
@@ -148,8 +149,8 @@ export default function ChatBot() {
 
             {loading && (
               <div className="flex gap-2">
-                <div className="w-7 h-7 rounded-full bg-forest-100 flex items-center justify-center">
-                  <Bot className="w-3.5 h-3.5 text-forest-700" />
+                <div className="w-7 h-7 rounded-full bg-sunlight-100 flex items-center justify-center">
+                  <Bot className="w-3.5 h-3.5 text-sunlight-700" />
                 </div>
                 <div className="bg-white/60 backdrop-blur-md border border-white/70 px-4 py-3 rounded-2xl rounded-tl-none w-44">
                   <div className="shimmer-line h-3 w-full rounded-full mb-2" />
@@ -166,7 +167,7 @@ export default function ChatBot() {
                   <button
                     key={q}
                     onClick={() => { setInput(q); }}
-                  className="block w-full text-left text-xs px-3 py-2 bg-white/60 backdrop-blur-sm text-forest-700 rounded-xl hover:bg-forest-100 transition-colors border border-white/70"
+                  className="block w-full text-left text-xs px-3 py-2 bg-white/60 backdrop-blur-sm text-sunlight-700 rounded-xl hover:bg-sunlight-100 transition-colors border border-white/70"
                   >
                     {q}
                   </button>
@@ -186,12 +187,12 @@ export default function ChatBot() {
                 onKeyDown={handleKey}
                 placeholder="Ask about adventures..."
                 rows={1}
-                className="flex-1 resize-none text-sm border border-white/70 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
+                className="flex-1 resize-none text-sm border border-white/70 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-sunlight-500 focus:border-transparent bg-white/80"
               />
               <button
                 onClick={send}
                 disabled={!input.trim() || loading}
-                className="primary-glow w-10 h-10 bg-forest-700 text-white rounded-xl flex items-center justify-center hover:bg-forest-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+                className="primary-glow w-10 h-10 bg-sunlight-700 text-white rounded-xl flex items-center justify-center hover:bg-sunlight-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
               >
                 <Send className="w-4 h-4" />
               </button>

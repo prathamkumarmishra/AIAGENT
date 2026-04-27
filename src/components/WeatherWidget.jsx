@@ -69,7 +69,7 @@ export default function WeatherWidget({ location }) {
           <span className="text-5xl">{icon}</span>
           <div>
             <div className="text-4xl font-bold">{weather.temperature}°C</div>
-            <div className="text-forest-300 text-sm capitalize mt-0.5">
+            <div className="text-sunlight-300 text-sm capitalize mt-0.5">
               {weather.description}
             </div>
           </div>
@@ -77,17 +77,17 @@ export default function WeatherWidget({ location }) {
 
         <div className="grid grid-cols-3 gap-3 mb-4">
           <div className="bg-white/10 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-            <Wind className="w-3.5 h-3.5 mx-auto mb-1 text-forest-300" />
+            <Wind className="w-3.5 h-3.5 mx-auto mb-1 text-sunlight-300" />
             <div className="text-xs font-semibold">{weather.windSpeed} m/s</div>
             <div className="text-[10px] text-white/60">Wind</div>
           </div>
           <div className="bg-white/10 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-            <Droplets className="w-3.5 h-3.5 mx-auto mb-1 text-forest-300" />
+            <Droplets className="w-3.5 h-3.5 mx-auto mb-1 text-sunlight-300" />
             <div className="text-xs font-semibold">{weather.humidity}%</div>
             <div className="text-[10px] text-white/60">Humidity</div>
           </div>
           <div className="bg-white/10 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-            <Eye className="w-3.5 h-3.5 mx-auto mb-1 text-forest-300" />
+            <Eye className="w-3.5 h-3.5 mx-auto mb-1 text-sunlight-300" />
             <div className="text-xs font-semibold">{weather.visibility} km</div>
             <div className="text-[10px] text-white/60">Visibility</div>
           </div>

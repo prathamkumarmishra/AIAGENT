@@ -87,7 +87,7 @@ const SPOTLIGHTS = [
     tag: "Whitewater",
   },
   {
-    title: "Forest camp rituals",
+    title: "sunlight camp rituals",
     text: "Camp setup, low-impact travel, night-sky pauses, trail snacks, and backup plans when the weather turns.",
     image: "https://images.unsplash.com/photo-1445307806294-bff7f67ff225?auto=format&fit=crop&w=900&q=80",
     tag: "Campcraft",
@@ -126,7 +126,7 @@ export default function HomePage() {
   return (
     <div className="pt-16 app-surface">
       {/* HERO */}
-      <section ref={heroRef} className="min-h-[92vh] flex items-center relative overflow-hidden bg-forest-900">
+      <section ref={heroRef} className="min-h-[92vh] flex items-center relative overflow-hidden bg-sunlight-900">
         <motion.video
           className="absolute inset-0 h-[115%] w-full object-cover"
           style={{ y: videoY }}
@@ -137,7 +137,7 @@ export default function HomePage() {
           loop
           playsInline
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-forest-950/90 via-forest-900/55 to-earth-800/35" />
+        <div className="absolute inset-0 bg-gradient-to-br from-sunlight-950/90 via-sunlight-900/55 to-earth-800/35" />
         <div className="absolute inset-0 topographic opacity-40" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#eef3ef] to-transparent" />
 
@@ -150,20 +150,20 @@ export default function HomePage() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="text-white space-y-6 pt-2"
             >
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm text-forest-200">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm text-sunlight-200">
                 <Sparkles className="w-4 h-4 text-earth-200" />
                 Modern Alpine AI Planning
               </div>
               <h1 className="text-5xl lg:text-6xl font-display font-bold leading-tight">
                 Plan the kind of trip
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-forest-300 via-white to-earth-200">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sunlight-300 via-white to-earth-200">
                   you can already feel
                 </span>
               </h1>
-              <p className="text-forest-100/85 text-lg leading-relaxed max-w-xl">
+              <p className="text-sunlight-100/85 text-lg leading-relaxed max-w-xl">
                 WildPath turns a loose adventure idea into a calm, cinematic field plan. It balances terrain, weather, budget, safety, packing, and route flow so your trip feels designed before you even leave home.
               </p>
-              <div className="flex flex-wrap gap-3 text-sm text-forest-200">
+              <div className="flex flex-wrap gap-3 text-sm text-sunlight-200">
                 {["AI-crafted pacing", "Weather-aware safety", "Interactive route view", "Budget-smart days"].map((f) => (
                   <span key={f} className="bg-white/10 border border-white/15 px-3 py-1.5 rounded-full">{f}</span>
                 ))}
@@ -177,25 +177,25 @@ export default function HomePage() {
                   className="glass depth-card rounded-lg p-4 border border-white/20"
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-forest-200">
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-sunlight-200">
                       <Activity className="w-3.5 h-3.5" />
                       Expedition Pulse
                     </div>
-                    <span className="text-[11px] px-2 py-1 rounded-full bg-forest-500/25 text-forest-100 border border-forest-300/30">
+                    <span className="text-[11px] px-2 py-1 rounded-full bg-sunlight-500/25 text-sunlight-100 border border-sunlight-300/30">
                       Live
                     </span>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {HERO_PULSE.map((item) => (
                       <div key={item.label} className="rounded-xl border border-white/15 bg-white/5 px-3 py-2">
-                        <div className="text-[11px] text-forest-100/70">{item.label}</div>
+                        <div className="text-[11px] text-sunlight-100/70">{item.label}</div>
                         <div className="text-sm font-bold text-white mt-1">{item.value}</div>
                       </div>
                     ))}
                   </div>
                   <div className="mt-3 space-y-2">
                     {HERO_WINDOW.map((line) => (
-                      <div key={line} className="text-xs text-forest-100/80 flex items-start gap-2">
+                      <div key={line} className="text-xs text-sunlight-100/80 flex items-start gap-2">
                         <Clock3 className="w-3.5 h-3.5 mt-0.5 text-earth-200 flex-shrink-0" />
                         <span>{line}</span>
                       </div>
@@ -216,7 +216,7 @@ export default function HomePage() {
                         <Icon className="w-4 h-4" />
                       </div>
                       <h3 className="font-display text-base font-bold">{title}</h3>
-                      <p className="text-xs text-forest-100/75 mt-1 leading-relaxed">{text}</p>
+                      <p className="text-xs text-sunlight-100/75 mt-1 leading-relaxed">{text}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -226,7 +226,7 @@ export default function HomePage() {
                 {HERO_STATS.map((stat) => (
                   <div key={stat.label} className="glass rounded-xl px-4 py-3 border border-white/20">
                     <div className="font-display text-2xl font-bold">{stat.value}</div>
-                    <div className="text-xs text-forest-100/70 leading-snug">{stat.label}</div>
+                    <div className="text-xs text-sunlight-100/70 leading-snug">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -250,7 +250,7 @@ export default function HomePage() {
                       Give WildPath the essentials and let it shape a trip with rhythm, safety, and a little wonder.
                     </p>
                   </div>
-                  <div className="w-12 h-12 rounded-2xl bg-forest-900 text-white flex items-center justify-center shadow-lg">
+                  <div className="w-12 h-12 rounded-2xl bg-sunlight-900 text-white flex items-center justify-center shadow-lg">
                     <Compass className="w-6 h-6" />
                   </div>
                 </div>
@@ -264,7 +264,7 @@ export default function HomePage() {
                     placeholder="Where do you want to go? (e.g. Manali)"
                     value={form.location}
                     onChange={(e) => setForm({ ...form, location: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                    className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                     required
                   />
                 </div>
@@ -280,7 +280,7 @@ export default function HomePage() {
                       max="30"
                       value={form.days}
                       onChange={(e) => setForm({ ...form, days: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                      className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                       required
                     />
                   </div>
@@ -292,7 +292,7 @@ export default function HomePage() {
                       placeholder="Budget (₹)"
                       value={form.budget}
                       onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 bg-white/80"
+                      className="w-full pl-10 pr-4 py-3 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 bg-white/80"
                       required
                     />
                   </div>
@@ -311,8 +311,8 @@ export default function HomePage() {
                         onClick={() => toggleActivity(label)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${
                           form.activities.includes(label)
-                            ? "bg-forest-700 text-white border-forest-700"
-                            : "bg-white text-stone-600 border-stone-200 hover:border-forest-400"
+                            ? "bg-sunlight-700 text-white border-sunlight-700"
+                            : "bg-white text-stone-600 border-stone-200 hover:border-sunlight-400"
                         }`}
                       >
                         {icon} {label}
@@ -323,7 +323,7 @@ export default function HomePage() {
 
                 <button
                   type="submit"
-                  className="primary-glow w-full bg-forest-700 text-white py-3.5 rounded-xl font-semibold text-sm hover:bg-forest-600 transition-colors flex items-center justify-center gap-2 group"
+                  className="primary-glow w-full bg-sunlight-700 text-white py-3.5 rounded-xl font-semibold text-sm hover:bg-sunlight-600 transition-colors flex items-center justify-center gap-2 group"
                 >
                   <Search className="w-4 h-4" />
                   Find My Adventure
@@ -338,7 +338,7 @@ export default function HomePage() {
                   ].map((row) => (
                     <div key={row.label} className="flex items-center justify-between text-xs">
                       <span className="text-stone-500">{row.label}</span>
-                      <span className="font-semibold text-forest-800">{row.value}</span>
+                      <span className="font-semibold text-sunlight-800">{row.value}</span>
                     </div>
                   ))}
                 </div>
@@ -409,7 +409,7 @@ export default function HomePage() {
       </section>
 
       {/* JOURNEY */}
-      <section className="py-20 bg-forest-950 text-white overflow-hidden">
+      <section className="py-20 bg-sunlight-950 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
             <div>
@@ -417,7 +417,7 @@ export default function HomePage() {
               <h2 className="text-4xl font-display font-bold leading-tight">
                 From spark to itinerary in three graceful moves
               </h2>
-              <p className="text-forest-100/75 mt-4 leading-relaxed">
+              <p className="text-sunlight-100/75 mt-4 leading-relaxed">
                 WildPath is built to reduce the anxious parts of planning while keeping the inspiring parts alive. It asks for the essentials, reads the conditions, and returns a plan that feels practical, scenic, and human.
               </p>
               <div className="mt-8 grid grid-cols-3 gap-3">
@@ -428,7 +428,7 @@ export default function HomePage() {
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="rounded-lg border border-white/10 bg-white/5 p-4 text-center">
                     <Icon className="w-5 h-5 mx-auto text-earth-200 mb-2" />
-                    <span className="text-xs text-forest-100/75">{label} modes</span>
+                    <span className="text-xs text-sunlight-100/75">{label} modes</span>
                   </div>
                 ))}
               </div>
@@ -453,7 +453,7 @@ export default function HomePage() {
                         Step {index + 1}
                       </div>
                       <h3 className="font-display font-bold text-xl">{title}</h3>
-                      <p className="text-sm text-forest-100/75 mt-1 leading-relaxed">{text}</p>
+                      <p className="text-sm text-sunlight-100/75 mt-1 leading-relaxed">{text}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -521,7 +521,7 @@ export default function HomePage() {
                 </div>
                 <p className="text-stone-600 text-sm leading-relaxed mb-4">"{t.text}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-forest-700 text-white flex items-center justify-center font-bold text-sm">
+                  <div className="w-9 h-9 rounded-full bg-sunlight-700 text-white flex items-center justify-center font-bold text-sm">
                     {t.avatar}
                   </div>
                   <span className="text-sm font-medium text-stone-800">{t.name}</span>
@@ -536,7 +536,7 @@ export default function HomePage() {
       <footer className="bg-stone-900 text-stone-400 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <Mountain className="w-5 h-5 text-forest-400" />
+            <Mountain className="w-5 h-5 text-sunlight-400" />
             <span className="font-display font-bold text-white text-lg">WildPath</span>
           </div>
           <p className="text-sm">AI-Powered Outdoor Adventure Planner • Built with ❤️ for explorers</p>

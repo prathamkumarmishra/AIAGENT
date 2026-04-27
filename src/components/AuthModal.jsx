@@ -35,7 +35,7 @@ export default function AuthModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-forest-950/55 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-sunlight-950/55 backdrop-blur-sm" onClick={onClose} />
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -70,7 +70,7 @@ export default function AuthModal({ isOpen, onClose }) {
                 placeholder="Full name"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
+                className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 focus:border-transparent bg-white/80"
                 required
               />
             </div>
@@ -82,7 +82,7 @@ export default function AuthModal({ isOpen, onClose }) {
               placeholder="Email address"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
+              className="w-full pl-10 pr-4 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 focus:border-transparent bg-white/80"
               required
             />
           </div>
@@ -93,7 +93,7 @@ export default function AuthModal({ isOpen, onClose }) {
               placeholder="Password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full pl-10 pr-10 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-white/80"
+              className="w-full pl-10 pr-10 py-3 border border-white/70 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sunlight-500 focus:border-transparent bg-white/80"
               required
             />
             <button
@@ -108,7 +108,7 @@ export default function AuthModal({ isOpen, onClose }) {
           <button
             type="submit"
             disabled={loading}
-            className="primary-glow w-full bg-forest-700 text-white py-3 rounded-xl font-medium hover:bg-forest-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="primary-glow w-full bg-sunlight-700 text-white py-3 rounded-xl font-medium hover:bg-sunlight-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? "Please wait..." : mode === "login" ? "Sign In" : "Create Account"}
           </button>
@@ -118,7 +118,7 @@ export default function AuthModal({ isOpen, onClose }) {
           {mode === "login" ? "Don't have an account? " : "Already have an account? "}
           <button
             onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); }}
-            className="text-forest-600 font-medium hover:underline"
+            className="text-sunlight-600 font-medium hover:underline"
           >
             {mode === "login" ? "Sign up" : "Sign in"}
           </button>

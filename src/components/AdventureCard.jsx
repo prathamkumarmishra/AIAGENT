@@ -80,7 +80,7 @@ export default function AdventureCard({ adventure, searchParams }) {
           {adventure.activities.slice(0, 3).map((act) => (
             <span
               key={act}
-              className="tag-pill bg-forest-50 text-forest-700 border border-forest-100"
+              className="tag-pill bg-sunlight-50 text-sunlight-700 border border-sunlight-100"
             >
               {act}
             </span>
@@ -98,14 +98,14 @@ export default function AdventureCard({ adventure, searchParams }) {
             <Clock className="w-3.5 h-3.5" />
             Best: {adventure.bestTime}
           </div>
-          <div className="text-forest-700 font-semibold text-sm">
+          <div className="text-sunlight-700 font-semibold text-sm">
             {adventure.avgBudget}
           </div>
         </div>
 
         <button
           onClick={handleExplore}
-          className="primary-glow w-full bg-forest-700 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-forest-600 transition-colors flex items-center justify-center gap-2 group/btn"
+          className="primary-glow w-full bg-sunlight-700 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-sunlight-600 transition-colors flex items-center justify-center gap-2 group/btn"
         >
           Generate Itinerary
           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
