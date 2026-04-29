@@ -11,7 +11,18 @@ const authRoutes = require("./routes/auth");
 const app = express();
 const PORT = process.env.PORT || 5002;
 
-// Middleware
+// Middleware to ensure DB connection
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("DB Connection Middleware Error:", error);
+    next(); // Continue anyway, or handle error
+  }
+});
+
+// Other Middleware
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
@@ -37,8 +48,7 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Outdoor Adventure API is running" });
 });
 
-// Connect to Database
-connectDB();
+// Database connection is handled via middleware
 
 const startServer = async () => {
   return app.listen(PORT, () => {
