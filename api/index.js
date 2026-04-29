@@ -37,8 +37,10 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Outdoor Adventure API is running" });
 });
 
+// Connect to Database
+connectDB();
+
 const startServer = async () => {
-  await connectDB();
   return app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`API available at http://localhost:${PORT}/api`);
