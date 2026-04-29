@@ -1,11 +1,27 @@
 {
   "version": 2,
-  "framework": "vite",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "installCommand": "npm install && npm install --prefix api",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.js" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
