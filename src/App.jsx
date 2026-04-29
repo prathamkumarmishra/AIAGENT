@@ -11,7 +11,7 @@ import MyTripsPage from "./pages/MyTripsPage";
 import LoginPage from "./pages/LoginPage";
 import ChatBot from "./components/ChatBot";
 
-const GOOGLE_CLIENT_ID = "966286452649-o2ftmcn7f8matv5sig4sbihpnlbkagpg.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function AnimatedRoutes() {
   const location = useLocation();

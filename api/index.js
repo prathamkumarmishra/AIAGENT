@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
+const connectDB = require("./config/db");
 
 const adventureRoutes = require("./routes/adventure");
 const weatherRoutes = require("./routes/weather");
@@ -37,24 +37,6 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Outdoor Adventure API is running" });
 });
 
-// MongoDB Connection
-const connectDB = async () => {
-  try {
-    const mongoURI =
-      process.env.MONGODB_URI ||
-      "mongodb://localhost:27017/outdoor-adventure";
-    await mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 });
-    console.log("MongoDB connected successfully");
-    return true;
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-    console.log(
-      "Running without database - some features may be limited"
-    );
-    return false;
-  }
-};
-
 const startServer = async () => {
   await connectDB();
   return app.listen(PORT, () => {
@@ -62,6 +44,7 @@ const startServer = async () => {
     console.log(`API available at http://localhost:${PORT}/api`);
   });
 };
+
 
 if (require.main === module) {
   startServer();
