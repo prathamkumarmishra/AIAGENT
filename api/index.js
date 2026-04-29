@@ -11,14 +11,21 @@ const authRoutes = require("./routes/auth");
 const app = express();
 const PORT = process.env.PORT || 5002;
 
-// Middleware to ensure DB connection
-app.use(async (req, res, next) => {
+// Middleware to ensure DB connection before any API route
+app.use("/api", async (req, res, next) => {
+  // Skip DB connection for health check
+  if (req.path === "/health" || req.path === "/") {
+    return next();
+  }
   try {
     await connectDB();
     next();
   } catch (error) {
-    console.error("DB Connection Middleware Error:", error);
-    next(); // Continue anyway, or handle error
+    console.error("DB Connection Middleware Error:", error.message);
+    res.status(503).json({
+      error: "Database connection failed",
+      message: error.message,
+    });
   }
 });
 

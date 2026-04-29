@@ -1,29 +1,48 @@
 const mongoose = require("mongoose");
 
-const connectDB = async () => {
-  try {
-    const mongoURI = process.env.MONGODB_URI;
-    
-    if (!mongoURI) {
-      throw new Error("MONGODB_URI is not defined in the environment variables");
-    }
+let cached = global.mongooseConnection;
 
-    const conn = await mongoose.connect(mongoURI, {
-      serverSelectionTimeoutMS: 5000,
+if (!cached) {
+  cached = global.mongooseConnection = { conn: null, promise: null };
+}
+
+const connectDB = async () => {
+  // If already connected, reuse connection
+  if (cached.conn && mongoose.connection.readyState === 1) {
+    return cached.conn;
+  }
+
+  // If a connection attempt is in progress, wait for it
+  if (cached.promise) {
+    cached.conn = await cached.promise;
+    return cached.conn;
+  }
+
+  const mongoURI = process.env.MONGODB_URI;
+
+  if (!mongoURI) {
+    throw new Error("MONGODB_URI is not defined in the environment variables");
+  }
+
+  console.log("Connecting to MongoDB Atlas...");
+
+  cached.promise = mongoose
+    .connect(mongoURI, {
+      serverSelectionTimeoutMS: 8000,
+      bufferCommands: false,
+    })
+    .then((conn) => {
+      console.log(`✔ MongoDB Connected: ${conn.connection.host}`);
+      return conn;
+    })
+    .catch((error) => {
+      cached.promise = null; // Reset so next request retries
+      console.error(`✘ MongoDB Connection Error: ${error.message}`);
+      throw error;
     });
 
-    console.log(`\x1b[32m%s\x1b[0m`, `✔ MongoDB Connected: ${conn.connection.host}`);
-    return conn;
-  } catch (error) {
-    console.error(`\x1b[31m%s\x1b[0m`, `✘ MongoDB Connection Error: ${error.message}`);
-    
-    if (error.message.includes("Authentication failed")) {
-      console.warn(`\x1b[33m%s\x1b[0m`, `⚠ Tip: Check your username and password in the MONGODB_URI in .env`);
-    }
-    
-    console.log("Running in limited mode without database access.");
-    return null;
-  }
+  cached.conn = await cached.promise;
+  return cached.conn;
 };
 
 module.exports = connectDB;
